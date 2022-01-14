@@ -1,7 +1,7 @@
 import { suub, history } from "../../deps.ts";
 
 export type ActiveRoute = {
-  location: Location;
+  location: history.Location;
   Component: React.ComponentType;
   props: Record<string, unknown>;
 };

@@ -34,7 +34,7 @@ export class ClientRouter implements Router {
     this.routes = Route.pagesToRoutes(pages);
     const notFoundRoute = notNil(
       this.routes.find((route) =>
-        route.chemin.equal(chemin.Chemin.create("404"))
+        route.pattern.equal(chemin.Chemin.create("404"))
       )
     );
     this.notFoundRouteMatch = {
@@ -72,7 +72,7 @@ export class ClientRouter implements Router {
 
   public readonly subscribe = this.subscription.subscribe;
 
-  get location(): Location {
+  get location(): history.Location {
     return this.activeRoute?.location ?? this.history.location;
   }
 

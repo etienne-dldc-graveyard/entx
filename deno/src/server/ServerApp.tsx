@@ -16,7 +16,7 @@ import { Root } from "../shared/Root.tsx";
 import { notNil } from "../shared/Utils.ts";
 import { SsrManifest } from "../shared/Route.ts";
 
-export type Path = history.Path;
+export type RoutePath = history.Path;
 
 export type SsrModule = { pages: Pages.Pages };
 
@@ -73,7 +73,7 @@ export class ServerApp<Ssr extends SsrModule> {
     this.mode = mode;
   }
 
-  public async render(path: Path): Promise<RenderResult> {
+  public async render(path: RoutePath): Promise<RenderResult> {
     const resolved = await this.resolvePage(path);
     if (resolved.kind === "redirect") {
       return { kind: "redirect", redirect: resolved.redirect };
@@ -106,7 +106,7 @@ export class ServerApp<Ssr extends SsrModule> {
   }
 
   /** */
-  public async entxRoute(path: Path): Promise<EntxRouteResult> {
+  public async entxRoute(path: RoutePath): Promise<EntxRouteResult> {
     if (path.pathname.startsWith("/props")) {
       const body = await this.getProps({
         ...path,
@@ -195,7 +195,7 @@ export class ServerApp<Ssr extends SsrModule> {
     }
   }
 
-  private async getProps(path: Path): Promise<PropsApiResult> {
+  private async getProps(path: RoutePath): Promise<PropsApiResult> {
     const resolved = await this.resolvePage(path);
     const body = zenjson.sanitize(
       this.resolvePropsApiResult(resolved)
@@ -214,12 +214,12 @@ export class ServerApp<Ssr extends SsrModule> {
     };
   }
 
-  private async resolvePage(path: Path): Promise<PageResolved> {
+  private async resolvePage(path: RoutePath): Promise<PageResolved> {
     const build = await this.getBuildOutput();
     const routes = Route.pagesToRoutes(build.ssr.pages, build.ssrManifest);
     const notFoundRouteMatch: Route.RouteMatch = {
       route: notNil(
-        routes.find((route) => route.chemin.equal(chemin.Chemin.create("404")))
+        routes.find((route) => route.pattern.equal(chemin.Chemin.create("404")))
       ),
       params: {},
       isNotFound: true,
