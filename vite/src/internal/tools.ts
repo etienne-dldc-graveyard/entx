@@ -19,8 +19,8 @@ function createConfig(
 
   const baseConfig: InlineConfig = {
     configFile: false,
-    mode: mode,
-    logLevel: mode === "development" ? "silent" : "info",
+    mode,
+    // logLevel: mode === "development" ? "silent" : "info",
     clearScreen: false,
     build: {
       watch: {},
