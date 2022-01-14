@@ -1,5 +1,5 @@
 import React from "https://esm.sh/react@17.0.2";
-import * as history from "http://esm.sh/history@5.2.0";
+import * as history from "https://esm.sh/history@5.2.0";
 import * as chemin from "https://deno.land/x/chemin@v8.0.0/mod.ts";
 import * as suub from "https://deno.land/x/suub@v3.1.3/mod.ts";
 import * as zenjson from "https://deno.land/x/zenjson@v1.0.2/mod.ts";
