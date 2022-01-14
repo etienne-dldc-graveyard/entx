@@ -4,6 +4,8 @@ import { join } from "path";
 import { cac } from "cac";
 import { Options } from "./options";
 
+main().catch(console.error);
+
 export async function main(options: Options = {}) {
   const cli = cac("entx");
 
