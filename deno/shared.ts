@@ -6,5 +6,3 @@ export {
 } from "./src/shared/hooks/useCreateLinkProps.ts";
 export { type RouterContext, useRouter } from "./src/shared/hooks/useRouter.ts";
 export * from "./src/shared/Pages.ts";
-export * from "./src/server/ServerApp.tsx";
-export * from "./src/client/ClientApp.tsx";

@@ -17,15 +17,6 @@ export function denoPlugin({ importMap = { imports: {} } }: Options): Plugin {
         if (resolvedId.startsWith("http")) {
           return { id: resolvedId, external: true };
         }
-
-        // Temp while entx is local
-        if (resolvedId === "./src/entx/mod.ts") {
-          return { id: "entx", external: true };
-        }
-        if (resolvedId.match(/entx/)) {
-          console.warn(`Internal entx import: ${resolvedId}`);
-        }
-
         return resolvedId;
       }
       return resolvedId;
