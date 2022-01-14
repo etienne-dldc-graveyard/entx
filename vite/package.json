@@ -21,7 +21,7 @@
     "entx": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsup src/cli.ts src/main.ts --dts src/main.ts --clean --splitting",
+    "build": "tsup src/cli.ts src/main.ts --dts src/main.ts --clean",
     "release": "yarn build && np"
   },
   "dependencies": {

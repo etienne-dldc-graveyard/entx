@@ -1,6 +1,6 @@
 import type { RollupWatcherEvent } from "rollup";
 import { Options } from "./options";
-import { loadEntxConfig } from "./load";
+import { resolveEntxConfigSync } from "./load";
 import {
   buildClient,
   buildServer,
@@ -15,11 +15,10 @@ export const defineConfig = (
 ) => options;
 
 export async function entx(options: Options) {
-  const { data: configData = {} } =
-    options.config === false ? {} : await loadEntxConfig(process.cwd());
   const config =
-    typeof configData === "function" ? configData(options) : configData;
-
+    options.config === false
+      ? options
+      : await resolveEntxConfigSync(process.cwd(), options);
   const mode = config.mode || "development";
 
   // => Cleanup
