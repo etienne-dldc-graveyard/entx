@@ -5,7 +5,7 @@ import path from "path";
 import react from "@vitejs/plugin-react";
 import { denoPlugin } from "./denoPlugin";
 import { removeExportsPlugin } from "./removeExportsPlugin";
-import fetch from "node-fetch";
+import got from "got";
 
 export function projectPath(...parts: Array<string>): string {
   return path.resolve(process.cwd(), ...parts);
@@ -82,7 +82,7 @@ export function buildServer(mode: "development" | "production") {
 export async function notifyChanges(): Promise<void> {
   try {
     console.info(`=> Notify Changes`);
-    await fetch("http://localhost:3001/_entx/dev/invalidate");
+    await got.get("http://localhost:3001/_entx/dev/invalidate");
   } catch (error) {
     console.warn(`=> Dev server offline ?`);
   }

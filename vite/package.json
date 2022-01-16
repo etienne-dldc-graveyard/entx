@@ -15,10 +15,10 @@
   },
   "license": "MIT",
   "author": "Etienne Dldc <e.deladonchamps@gmail.com>",
-  "main": "dist/main.js",
+  "main": "dist/main.cjs",
   "types": "dist/main.d.ts",
   "bin": {
-    "entx": "dist/cli.js"
+    "entx": "dist/cli.cjs"
   },
   "scripts": {
     "build": "tsup src/cli.ts src/main.ts --dts src/main.ts --clean --splitting",
@@ -31,6 +31,7 @@
     "es-module-lexer": "^0.9.3",
     "esbuild": "^0.14.11",
     "fs-extra": "^10.0.0",
+    "got": "^12.0.1",
     "joycon": "^3.1.1",
     "node-fetch": "^3.1.0",
     "np": "^7.6.0",
