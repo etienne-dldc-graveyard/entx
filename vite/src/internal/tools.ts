@@ -5,26 +5,25 @@ import path from "path";
 import react from "@vitejs/plugin-react";
 import { denoPlugin } from "./denoPlugin";
 import { removeExportsPlugin } from "./removeExportsPlugin";
-import axios from "axios";
+import { OptionsResolved } from "../options";
 
 export function projectPath(...parts: Array<string>): string {
   return path.resolve(process.cwd(), ...parts);
 }
 
 function createConfig(
-  mode: "development" | "production",
+  options: OptionsResolved,
   config: InlineConfig
 ): InlineConfig {
-  const importMap = fse.readJsonSync(projectPath("importmap.json"));
   const pagesDir = projectPath("src/pages");
 
   const baseConfig: InlineConfig = {
     configFile: false,
-    mode,
+    mode: options.mode,
     // logLevel: mode === "development" ? "silent" : "info",
     clearScreen: false,
     build: {
-      minify: mode === "production",
+      minify: options.mode === "production",
       watch: {},
     },
     plugins: [
@@ -39,7 +38,7 @@ function createConfig(
           }
         },
       }),
-      denoPlugin({ importMap }),
+      denoPlugin({ importMap: options.importMap }),
     ],
   };
   return {
@@ -53,9 +52,9 @@ function createConfig(
   };
 }
 
-export function buildClient(mode: "development" | "production") {
+export function buildClient(options: OptionsResolved) {
   return createBuild(
-    createConfig(mode, {
+    createConfig(options, {
       build: {
         outDir: projectPath(".entx/client"),
         ssrManifest: true,
@@ -64,9 +63,9 @@ export function buildClient(mode: "development" | "production") {
   );
 }
 
-export function buildServer(mode: "development" | "production") {
+export function buildServer(options: OptionsResolved) {
   return createBuild(
-    createConfig(mode, {
+    createConfig(options, {
       build: {
         outDir: projectPath(".entx/server"),
         ssr: "src/ssr.ts",

@@ -9,6 +9,7 @@ import {
 } from "./internal/tools";
 import fse from "fs-extra";
 import { debounce } from "throttle-debounce";
+import { resolveOptions } from "./options";
 
 export const defineConfig = (
   options: Options | ((overrideOptions: Options) => Options)
@@ -19,18 +20,19 @@ export async function entx(options: Options) {
     options.config === false
       ? options
       : await resolveEntxConfigSync(process.cwd(), options);
-  const mode = config.mode || "development";
+
+  const resolved = await resolveOptions(config);
 
   // => Cleanup
   await fse.emptyDir(projectPath(".entx"));
 
   // => Building Client
-  const client = await buildClient(mode);
+  const client = await buildClient(resolved);
 
   // => Building Server
-  const server = await buildServer(mode);
+  const server = await buildServer(resolved);
 
-  if (mode === "production") {
+  if (resolved.mode === "production") {
     server.close();
     client.close();
     return;

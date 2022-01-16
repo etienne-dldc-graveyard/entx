@@ -9,19 +9,27 @@ main().catch(console.error);
 export async function main(options: Options = {}) {
   const cli = cac("entx");
 
-  cli.command("build", "Bundle your app with Vite").action(async () => {
-    const { entx } = await import("./main");
-    await entx({
-      mode: "production",
+  cli
+    .command("build", "Bundle your app with Vite")
+    .option("--importmap <path>", "Path to import map files relative to cwd")
+    .action(async (_, flags) => {
+      const { entx } = await import("./main");
+      await entx({
+        mode: "production",
+        importmap: flags.importmap,
+      });
     });
-  });
 
-  cli.command("dev", "Start a development server").action(async () => {
-    const { entx } = await import("./main");
-    await entx({
-      mode: "development",
+  cli
+    .command("dev", "Start a development server")
+    .option("--importmap <path>", "Path to import map files relative to cwd")
+    .action(async (_, flags) => {
+      const { entx } = await import("./main");
+      await entx({
+        mode: "development",
+        importmap: flags.importmap,
+      });
     });
-  });
 
   cli.help();
 
