@@ -24,6 +24,7 @@ function createConfig(
     // logLevel: mode === "development" ? "silent" : "info",
     clearScreen: false,
     build: {
+      minify: mode === "production",
       watch: {},
     },
     plugins: [
