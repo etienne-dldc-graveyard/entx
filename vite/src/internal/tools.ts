@@ -5,6 +5,7 @@ import path from "path";
 import react from "@vitejs/plugin-react";
 import { denoPlugin } from "./denoPlugin";
 import { removeExportsPlugin } from "./removeExportsPlugin";
+import fetch from "node-fetch";
 
 export function projectPath(...parts: Array<string>): string {
   return path.resolve(process.cwd(), ...parts);
@@ -79,7 +80,6 @@ export function buildServer(mode: "development" | "production") {
 }
 
 export async function notifyChanges(): Promise<void> {
-  const fetch = (await import("node-fetch")).default;
   try {
     console.info(`=> Notify Changes`);
     await fetch("http://localhost:3001/_entx/dev/invalidate");
