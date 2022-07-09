@@ -12,7 +12,7 @@ export async function main(options: Options = {}) {
   cli
     .command("build", "Bundle your app with Vite")
     .option("--importmap <path>", "Path to import map files relative to cwd")
-    .action(async (_, flags) => {
+    .action(async (flags = {}) => {
       const { entx } = await import("./main");
       await entx({
         mode: "production",
@@ -23,7 +23,7 @@ export async function main(options: Options = {}) {
   cli
     .command("dev", "Start a development server")
     .option("--importmap <path>", "Path to import map files relative to cwd")
-    .action(async (_, flags) => {
+    .action(async (flags = {}) => {
       const { entx } = await import("./main");
       await entx({
         mode: "development",

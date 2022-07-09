@@ -25,5 +25,8 @@ export async function resolveOptions(
   const importMap = options.importmap
     ? await fse.readJson(path.resolve(process.cwd(), options.importmap))
     : { imports: {} };
+
+  console.log(importMap);
+
   return { mode, importMap };
 }
